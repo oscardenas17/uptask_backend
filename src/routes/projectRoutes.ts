@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ProjectController } from "../controllers/ProjectController";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { handleInputsErrors } from "../middleware/validation";
 
 const router = Router();
@@ -17,6 +17,14 @@ router.post(
   handleInputsErrors,
   ProjectController.createProject
 );
+
 router.get("/", ProjectController.getAllProjects);
+
+router.get(
+  "/:id",
+  param("id").isMongoId().withMessage("ID no válido"),
+  handleInputsErrors,
+  ProjectController.getProjectById
+);
 
 export default router;
