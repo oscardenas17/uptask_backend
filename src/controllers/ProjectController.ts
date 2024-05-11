@@ -70,7 +70,4 @@ export class ProjectController {
       console.log(error);
     }
   };
-
-
-
 }
