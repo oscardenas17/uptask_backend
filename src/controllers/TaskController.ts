@@ -9,8 +9,11 @@ export class TaskController {
       const task = new Task(taskData);
 
       req.project.tasks.push(task.id);
-      await task.save();
-      await req.project.save();
+
+      //Mejora en lugar de usar los dos save, se usa Promise.allSettled para que se lancen los dos save al tiempo
+      // await task.save();
+      // await req.project.save();
+      await Promise.allSettled([task.save(), req.project.save()]);
 
       res.send("Tarea creada correctamente");
     } catch (error) {
