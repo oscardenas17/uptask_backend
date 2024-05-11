@@ -15,7 +15,7 @@ export interface Itask extends Document {
   description: string;
   project: Types.ObjectId;
   status: TaskStatus;
-}
+} 
 
 const TaskSchema: Schema = new Schema(
   {

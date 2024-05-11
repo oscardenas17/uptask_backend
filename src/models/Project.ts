@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, PopulatedDoc, Types } from "mongoose";
 import { Itask } from "./Task";
-
+ 
 export interface IProject extends Document {
   projectName: string;
   clienteName: string;

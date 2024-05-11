@@ -38,7 +38,9 @@ router.put(
   body("clienteName")
     .notEmpty()
     .withMessage("El nombre del cliente es Obligatorio"),
-  body("description").notEmpty().withMessage("La descripción es Obligatoria"),
+  body("description")
+    .notEmpty()
+    .withMessage("La descripción del proyecto es Obligatoria"),
   handleInputsErrors,
   ProjectController.updateProject
 );
@@ -54,7 +56,19 @@ router.delete(
 router.post(
   "/:projectId/tasks",
   validateProjectExists,
+  body("name").notEmpty().withMessage("El nombre de la tarea es Obligatorio"),
+
+  body("description")
+    .notEmpty()
+    .withMessage("La descripción de la tarea es Obligatoria"),
+  handleInputsErrors,
   TaskController.createTask
+);
+
+router.get(
+  "/:projectId/tasks",
+  validateProjectExists,
+  TaskController.getProjectTasks
 );
 
 export default router;
