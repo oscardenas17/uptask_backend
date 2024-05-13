@@ -41,13 +41,36 @@ export class TaskController {
         return res.status(404).json({ error: error.message });
       }
 
- 
       if (task.project.toString() !== req.project.id) {
-        const error = new Error("Acción no válida, La tarea no corresponde al proyecto");
+        const error = new Error(
+          "Acción no válida, La tarea no corresponde al proyecto"
+        );
         return res.status(400).json({ error: error.message });
       }
 
       res.json(task);
+    } catch (error) {
+      res.status(500).json({ error: "Hubo un error" });
+    }
+  };
+
+  static updateTask = async (req: Request, res: Response) => {
+    try {
+      const { taskId } = req.params;
+      const task = await Task.findByIdAndUpdate(taskId, req.body);
+      if (!task) {
+        const error = new Error("Tarea no encontrada");
+        return res.status(404).json({ error: error.message });
+      }
+
+      if (task.project.toString() !== req.project.id) {
+        const error = new Error(
+          "Acción no válida, La tarea no corresponde al proyecto"
+        );
+        return res.status(400).json({ error: error.message });
+      }
+
+      res.send("Tarea actualizada correctamente");
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
     }
