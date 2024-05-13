@@ -53,11 +53,11 @@ router.delete(
 );
 
 /** ROUTES FOR TASKS */
+
+router.param("projectId", validateProjectExists);
 router.post(
   "/:projectId/tasks",
-  validateProjectExists,
   body("name").notEmpty().withMessage("El nombre de la tarea es Obligatorio"),
-
   body("description")
     .notEmpty()
     .withMessage("La descripción de la tarea es Obligatoria"),
@@ -65,15 +65,12 @@ router.post(
   TaskController.createTask
 );
 
-router.get(
-  "/:projectId/tasks",
-  validateProjectExists,
-  TaskController.getProjectTasks
-);
+router.get("/:projectId/tasks", TaskController.getProjectTasks);
 
 router.get(
   "/:projectId/tasks/:taskId",
-  validateProjectExists,
+  param("taskId").isMongoId().withMessage("Id no válido"),
+  handleInputsErrors,
   TaskController.getTaskById
 );
 
