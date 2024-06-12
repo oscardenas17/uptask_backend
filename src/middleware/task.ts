@@ -32,3 +32,18 @@ export async function taskExists(
     res.status(500).json({ error });
   }
 }
+
+export function taskBelongsToProject(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.task.project.toString() !== req.project.id.toString()) {
+    const error = new Error(
+      "Acción no válida, La tarea no corresponde al proyecto"
+    );
+    return res.status(400).json({ error: error.message });
+  }
+
+  next();
+}

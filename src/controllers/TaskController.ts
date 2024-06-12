@@ -34,12 +34,7 @@ export class TaskController {
 
   static getTaskById = async (req: Request, res: Response) => {
     try {
-      if (req.task.project.toString() !== req.project.id) {
-        const error = new Error(
-          "Acción no válida, La tarea no corresponde al proyecto"
-        );
-        return res.status(400).json({ error: error.message });
-      }
+  
 
       res.json(req.task);
     } catch (error) {
@@ -49,12 +44,7 @@ export class TaskController {
 
   static updateTask = async (req: Request, res: Response) => {
     try {
-      if (req.task.project.toString() !== req.project.id) {
-        const error = new Error(
-          "Acción no válida, La tarea no corresponde al proyecto"
-        );
-        return res.status(400).json({ error: error.message });
-      }
+     
 
       req.task.name = req.body.name;
       req.task.description = req.body.description;
@@ -71,9 +61,7 @@ export class TaskController {
       req.project.tasks = req.project.tasks.filter(
         (task) => task.toString() !== req.task.id.toString()
       );
-
       await Promise.allSettled([req.task.deleteOne(), req.project.save()]);
-
       res.send("Tarea Eliminada correctamente");
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
