@@ -3,8 +3,9 @@ import { ProjectController } from "../controllers/ProjectController";
 import { body, param } from "express-validator";
 import { handleInputsErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
-import { validateProjectExists } from "../middleware/project";
+import { projectExists } from "../middleware/project";
 import Task from "../models/Task";
+import { taskExists } from "../middleware/task";
 
 const router = Router();
 
@@ -55,7 +56,14 @@ router.delete(
 
 /** ROUTES FOR TASKS */
 
-router.param("projectId", validateProjectExists);
+//Uso de middleware para validar si el project existe
+router.param("projectId", projectExists);
+//Uso de middleware para validar si la tarea existe
+
+
+router.param("taskId", taskExists);
+
+
 router.post(
   "/:projectId/tasks",
   body("name").notEmpty().withMessage("El nombre de la tarea es Obligatorio"),
