@@ -2,12 +2,14 @@ import type { Response, Request } from "express";
 import Project from "../models/Project";
 
 export class ProjectController {
+  
   static createProject = async (req: Request, res: Response) => {
+    console.log(req.body);
     const project = new Project(req.body);
-
+    console.log(project);
     try {
       await project.save();
-      res.send("Create project");
+      res.send("Proyecto creado correctamente");
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +49,7 @@ export class ProjectController {
         return res.status(404).json({ error: error.message });
       }
 
-      project.clienteName = req.body.clienteName;
+      project.clientName = req.body.clientName;
       project.projectName = req.body.projectName;
       project.description = req.body.description;
 

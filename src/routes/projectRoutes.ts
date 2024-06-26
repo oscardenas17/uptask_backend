@@ -14,7 +14,7 @@ router.post(
   body("projectName")
     .notEmpty()
     .withMessage("El nombre del Proyecto es Obligatorio"),
-  body("clienteName")
+  body("clientName")
     .notEmpty()
     .withMessage("El nombre del cliente es Obligatorio"),
   body("description").notEmpty().withMessage("La descripción es Obligatoria"),

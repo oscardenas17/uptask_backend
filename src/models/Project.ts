@@ -3,7 +3,7 @@ import { Itask } from "./Task";
  
 export interface IProject extends Document {
   projectName: string;
-  clienteName: string;
+  clientName: string;
   description: string;
   tasks: PopulatedDoc<Itask & Document>[];
 }
@@ -15,7 +15,7 @@ const ProjectSchema: Schema = new Schema(
       required: true,
       trim: true,
     },
-    clienteName: {
+    clientName: {
       type: String,
       required: true,
       trim: true,
